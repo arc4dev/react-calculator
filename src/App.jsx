@@ -1,4 +1,5 @@
 import { useReducer } from 'react';
+
 import DigitButton from './DigitButton';
 import OperationButton from './OperationButton';
 import ActionButton from './ActionButton';
@@ -130,46 +131,56 @@ function App() {
   );
 
   return (
-    <div className="calculator">
-      <div className="output">
-        <span className="previous-operand">
-          {previousOperand}
-          {operator}
-        </span>
-        <p className="current-operand">{currentOperand}</p>
+    <>
+      <h1 className="heading">
+        <span>Calc</span>ulator
+      </h1>
+
+      <div className="calculator">
+        <div className="output">
+          <span className="previous-operand">
+            {previousOperand}
+            {operator}
+          </span>
+          <p className="current-operand">{currentOperand}</p>
+        </div>
+
+        <ActionButton
+          dispatch={dispatch}
+          type={actions.CLEAR}
+          className="span-two">
+          AC
+        </ActionButton>
+        <ActionButton dispatch={dispatch} type={actions.DELETE_NUMBER}>
+          DEL
+        </ActionButton>
+        <OperationButton dispatch={dispatch}>÷</OperationButton>
+        <DigitButton dispatch={dispatch}>1</DigitButton>
+        <DigitButton dispatch={dispatch}>2</DigitButton>
+        <DigitButton dispatch={dispatch}>3</DigitButton>
+        <OperationButton dispatch={dispatch}>x</OperationButton>
+        <DigitButton dispatch={dispatch}>4</DigitButton>
+        <DigitButton dispatch={dispatch}>5</DigitButton>
+        <DigitButton dispatch={dispatch}>6</DigitButton>
+        <OperationButton dispatch={dispatch}>+</OperationButton>
+        <DigitButton dispatch={dispatch}>7</DigitButton>
+        <DigitButton dispatch={dispatch}>8</DigitButton>
+        <DigitButton dispatch={dispatch}>9</DigitButton>
+        <OperationButton dispatch={dispatch}>-</OperationButton>
+        <DigitButton dispatch={dispatch}>0</DigitButton>
+        <DigitButton dispatch={dispatch}>.</DigitButton>
+        <ActionButton
+          dispatch={dispatch}
+          type={actions.COMPUTE}
+          className="span-two operator">
+          =
+        </ActionButton>
       </div>
 
-      <ActionButton
-        dispatch={dispatch}
-        type={actions.CLEAR}
-        className="span-two">
-        AC
-      </ActionButton>
-      <ActionButton dispatch={dispatch} type={actions.DELETE_NUMBER}>
-        DEL
-      </ActionButton>
-      <OperationButton dispatch={dispatch}>÷</OperationButton>
-      <DigitButton dispatch={dispatch}>1</DigitButton>
-      <DigitButton dispatch={dispatch}>2</DigitButton>
-      <DigitButton dispatch={dispatch}>3</DigitButton>
-      <OperationButton dispatch={dispatch}>x</OperationButton>
-      <DigitButton dispatch={dispatch}>4</DigitButton>
-      <DigitButton dispatch={dispatch}>5</DigitButton>
-      <DigitButton dispatch={dispatch}>6</DigitButton>
-      <OperationButton dispatch={dispatch}>+</OperationButton>
-      <DigitButton dispatch={dispatch}>7</DigitButton>
-      <DigitButton dispatch={dispatch}>8</DigitButton>
-      <DigitButton dispatch={dispatch}>9</DigitButton>
-      <OperationButton dispatch={dispatch}>-</OperationButton>
-      <DigitButton dispatch={dispatch}>0</DigitButton>
-      <DigitButton dispatch={dispatch}>.</DigitButton>
-      <ActionButton
-        dispatch={dispatch}
-        type={actions.COMPUTE}
-        className="span-two operator">
-        =
-      </ActionButton>
-    </div>
+      <footer className="footer">
+        <span>&copy; 2023 Arkadiusz Sroczyk.</span>
+      </footer>
+    </>
   );
 }
 
