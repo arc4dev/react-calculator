@@ -4,23 +4,15 @@ import DigitButton from './DigitButton';
 import OperationButton from './OperationButton';
 import ActionButton from './ActionButton';
 
-export const actions = {
-  CLEAR: 'CLEAR',
-  DELETE_NUMBER: 'DELETE_NUMBER',
-  ADD_NUMBER: 'ADD_NUMBER',
-  CHOOSE_OPERATOR: 'CHOOSE_OPERATOR',
-  COMPUTE: 'COMPUTE',
-};
-
-const initialState = {
+const initialState: AppState = {
   previousOperand: null,
   currentOperand: '0',
   operator: null,
 };
 
-const reducer = (state, { type, payload }) => {
-  const computeResult = (operator, num1, num2) => {
-    let computation;
+const reducer = (state: AppState, { type, payload }: ActionTypes) => {
+  const computeResult = (operator: string, num1: number, num2: number) => {
+    let computation: number;
 
     switch (operator) {
       case '+':
@@ -43,7 +35,7 @@ const reducer = (state, { type, payload }) => {
   };
 
   switch (type) {
-    case actions.ADD_NUMBER:
+    case 'ADD_NUMBER':
       if (state.currentOperand.includes('.') && payload === '.') return state;
       if (state.currentOperand === '0' && payload === '0') return state;
       if (state.currentOperand === '0')
@@ -57,14 +49,14 @@ const reducer = (state, { type, payload }) => {
         currentOperand: `${state.currentOperand}${payload}`,
       };
 
-    case actions.CHOOSE_OPERATOR:
+    case 'CHOOSE_OPERATOR':
       if (state.currentOperand === '0' && state.previousOperand === null)
         return state;
 
       if (state.operator && state.currentOperand !== '0') {
         const computation = computeResult(
           state.operator,
-          parseFloat(state.previousOperand),
+          parseFloat(state.previousOperand as string),
           parseFloat(state.currentOperand)
         );
 
@@ -81,6 +73,7 @@ const reducer = (state, { type, payload }) => {
           ...state,
           operator: payload,
         };
+      console.log('yey');
 
       return {
         ...state,
@@ -89,10 +82,10 @@ const reducer = (state, { type, payload }) => {
         currentOperand: '0',
       };
 
-    case actions.CLEAR:
+    case 'CLEAR':
       return initialState;
 
-    case actions.DELETE_NUMBER:
+    case 'DELETE_NUMBER':
       if (state.currentOperand.length === 1)
         return { ...state, currentOperand: '0' };
 
@@ -103,12 +96,12 @@ const reducer = (state, { type, payload }) => {
         currentOperand: state.currentOperand.slice(0, -1),
       };
 
-    case actions.COMPUTE:
+    case 'COMPUTE':
       if (!state.operator) return state;
 
       const computation = computeResult(
         state.operator,
-        parseFloat(state.previousOperand),
+        parseFloat(state.previousOperand as string),
         parseFloat(state.currentOperand)
       );
 
@@ -120,7 +113,7 @@ const reducer = (state, { type, payload }) => {
       };
 
     default:
-      throw new Error(`Unknown action type: ${type}`);
+      return state;
   }
 };
 
@@ -145,13 +138,10 @@ function App() {
           <p className="current-operand">{currentOperand}</p>
         </div>
 
-        <ActionButton
-          dispatch={dispatch}
-          type={actions.CLEAR}
-          className="span-two">
+        <ActionButton dispatch={dispatch} type="CLEAR" className="span-two">
           AC
         </ActionButton>
-        <ActionButton dispatch={dispatch} type={actions.DELETE_NUMBER}>
+        <ActionButton dispatch={dispatch} type="DELETE_NUMBER">
           DEL
         </ActionButton>
         <OperationButton dispatch={dispatch}>÷</OperationButton>
@@ -171,7 +161,7 @@ function App() {
         <DigitButton dispatch={dispatch}>.</DigitButton>
         <ActionButton
           dispatch={dispatch}
-          type={actions.COMPUTE}
+          type="COMPUTE"
           className="span-two operator">
           =
         </ActionButton>
