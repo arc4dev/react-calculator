@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Just a simple react calculator to practice and consolidate my knowledge of React :)
+Just a simple react calculator to practice and consolidate my knowledge of React and static typing with TypeScript :)
 
 ## Features
 
@@ -12,7 +12,7 @@ Just a simple react calculator to practice and consolidate my knowledge of React
 ## Tech Stack
 
 - **React**
-- **JavaScript**
+- **TypeScript**
 - **CSS**
 
 ## Optimization
