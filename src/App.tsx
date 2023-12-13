@@ -73,7 +73,6 @@ const reducer = (state: AppState, { type, payload }: ActionTypes) => {
           ...state,
           operator: payload,
         };
-      console.log('yey');
 
       return {
         ...state,
@@ -135,7 +134,9 @@ function App() {
             {previousOperand}
             {operator}
           </span>
-          <p className="current-operand">{currentOperand}</p>
+          <p data-testid="current-result" className="current-operand">
+            {currentOperand}
+          </p>
         </div>
 
         <ActionButton dispatch={dispatch} type="CLEAR" className="span-two">
